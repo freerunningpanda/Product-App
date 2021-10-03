@@ -1,4 +1,4 @@
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:fakestore_flutter/product.dart';
 import 'package:flutter/material.dart';
@@ -86,13 +86,82 @@ class _ProductFakeStoreAppState extends State<ProductFakeStoreApp> {
                           size: 30,
                         ),
                         contentPadding: const EdgeInsets.all(15),
-                        leading: ImageProdutsWidget(
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const ImageProductWidget();
+                        })),
+                        leading: ImageProduts20Widget(
                           urlImage: item.image,
                         ),
                       );
                     }),
               ),
       ),
+    );
+  }
+}
+
+class ImageProductWidget extends StatefulWidget {
+  const ImageProductWidget({Key? key}) : super(key: key);
+
+  @override
+  _ImageProductWidgetState createState() => _ImageProductWidgetState();
+}
+
+class _ImageProductWidgetState extends State<ImageProductWidget> {
+  var dio = Dio();
+  late final Product product;
+  bool isLoad = false;
+  // _ImageProductWidgetState(this.product);
+
+  @override
+  void initState() {
+    fetchProduct();
+    super.initState();
+  }
+
+  Future<void> fetchProduct([int id = 3]) async {
+    var response = await dio.get('https://fakestoreapi.com/products/$id');
+    setState(() {
+      product = Product.fromJson(response.data);
+      isLoad = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          product.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'price: ${product.price}',
+          style: const TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'category: ${product.category.trim()}',
+          style: const TextStyle(fontSize: 20.0, color: Colors.black87),
+        ),
+        Expanded(
+            child: CachedNetworkImage(
+          imageUrl: product.image,
+          placeholder: (context, url) => Image.asset('assets/no_image.jpg'),
+        )),
+        Text(
+          product.description,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20.0),
+        ),
+      ],
     );
   }
 }
