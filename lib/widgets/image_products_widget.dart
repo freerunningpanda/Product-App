@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ImageProduts20Widget extends StatelessWidget {
+class ImageProductWidget extends StatelessWidget {
   final String urlImage;
   final double height;
   final double width;
 
-  const ImageProduts20Widget(
+  const ImageProductWidget(
       {Key? key, required this.urlImage, this.height = 50, this.width = 80})
       : super(key: key);
 
