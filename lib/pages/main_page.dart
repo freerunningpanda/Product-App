@@ -1,3 +1,4 @@
+import 'package:fakestore_flutter/api/fakestore_api.dart';
 import 'package:fakestore_flutter/controllers/download_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,9 @@ import '../widgets/image_products_widget.dart';
 import 'product_card_page.dart';
 
 class MainPageFakeStoreApp extends StatelessWidget {
-  const MainPageFakeStoreApp({Key? key}) : super(key: key);
+  final FakeStoreProvider _fakeStoreProvider;
+  const MainPageFakeStoreApp({Key? key, required FakeStoreProvider fakeStoreProvider})
+      : _fakeStoreProvider = fakeStoreProvider, super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class MainPageFakeStoreApp extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.grey[900],
           ),
+          drawer: Drawer(),
           body: !controller.isLoad.value
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -53,7 +57,10 @@ class MainPageFakeStoreApp extends StatelessWidget {
                                 ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
-                                : Get.to(() => const ProductCardPage())
+                                : Get.to(() => ProductCardPage(
+                                      id: item.id,
+                                      fakeStoreProvider: _fakeStoreProvider,
+                                    ))
                           },
                           leading: ImageProductWidget(
                             urlImage: item.image,
