@@ -1,14 +1,20 @@
+import 'package:fakestore_flutter/api/fakestore_api.dart';
 import 'package:fakestore_flutter/controllers/product_card_page_controller.dart';
 import 'package:fakestore_flutter/widgets/image_products_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCardPage extends StatelessWidget {
-  const ProductCardPage({Key? key}) : super(key: key);
+  final int id;
+  final FakeStoreProvider fakeStoreProvider;
+  const ProductCardPage(
+      {Key? key, required this.id, required this.fakeStoreProvider})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ProductCardPageController());
+    Get.lazyPut(() =>
+        ProductCardPageController(id: id, productProvider: fakeStoreProvider));
     final controller = Get.find<ProductCardPageController>();
     return Obx(() => Scaffold(
         appBar: AppBar(
