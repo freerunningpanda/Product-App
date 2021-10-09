@@ -15,7 +15,7 @@ class DownloadController extends GetxController {
   }
 
   Future<void> fetch20Products() async {
-    Future.delayed(const Duration(seconds: 3));
+    Future.delayed(const Duration(seconds: 6));
     var response = await dio.get('https://fakestoreapi.com/products');
     productList.value = (response.data as List<dynamic>)
         .map((e) => Product.fromJson(e))

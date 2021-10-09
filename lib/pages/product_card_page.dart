@@ -1,45 +1,22 @@
-import 'package:dio/dio.dart';
+import 'package:fakestore_flutter/controllers/product_card_page_controller.dart';
 import 'package:fakestore_flutter/widgets/image_products_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../product.dart';
-
-class ProductCardPage extends StatefulWidget {
-  final int productId;
-  const ProductCardPage({Key? key, required this.productId}) : super(key: key);
-
-  @override
-  _ProductCardPageState createState() => _ProductCardPageState();
-}
-
-class _ProductCardPageState extends State<ProductCardPage> {
-  var dio = Dio();
-  late final Product product;
-  bool isLoad = false;
-
-  @override
-  void initState() {
-    fetchProduct(widget.productId);
-    super.initState();
-  }
-
-  Future<void> fetchProduct([int id = 3]) async {
-    var response = await dio.get('https://fakestoreapi.com/products/$id');
-    setState(() {
-      product = Product.fromJson(response.data);
-      isLoad = true;
-    });
-  }
+class ProductCardPage extends StatelessWidget {
+  const ProductCardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Get.lazyPut(() => ProductCardPageController());
+    final controller = Get.find<ProductCardPageController>();
+    return Obx(() => Scaffold(
         appBar: AppBar(
           title: const Text('FakeStore App'),
           centerTitle: true,
           backgroundColor: Colors.grey[900],
         ),
-        body: !isLoad
+        body: !controller.isLoad.value
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -48,7 +25,7 @@ class _ProductCardPageState extends State<ProductCardPage> {
                 child: Column(
                   children: [
                     Text(
-                      product.title,
+                      controller.product.title,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold),
@@ -57,7 +34,7 @@ class _ProductCardPageState extends State<ProductCardPage> {
                       height: 10,
                     ),
                     Text(
-                      'price: ${product.price}',
+                      'price: ${controller.product.price}',
                       style: const TextStyle(
                           fontSize: 20.0, fontStyle: FontStyle.italic),
                     ),
@@ -65,13 +42,13 @@ class _ProductCardPageState extends State<ProductCardPage> {
                       height: 10,
                     ),
                     Text(
-                      'category: ${product.category.trim()}',
+                      'category: ${controller.product.category.trim()}',
                       style: const TextStyle(
                           fontSize: 20.0, color: Colors.black87),
                     ),
                     Expanded(
                         child: ImageProductWidget(
-                      urlImage: product.image,
+                      urlImage: controller.product.image,
                       width: 300,
                     )),
                     Expanded(
@@ -79,11 +56,11 @@ class _ProductCardPageState extends State<ProductCardPage> {
                         child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Text(
-                              product.description,
+                              controller.product.description,
                               textAlign: TextAlign.center,
                               style: const TextStyle(fontSize: 20.0),
                             ))),
                   ],
-                )));
+                ))));
   }
 }

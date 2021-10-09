@@ -49,9 +49,11 @@ class MainPageFakeStoreApp extends StatelessWidget {
                           ),
                           contentPadding: const EdgeInsets.all(15),
                           onTap: () => {
-                            Get.to(() => ProductCardPage(
-                                  productId: item.id,
-                                ))
+                            !controller.isLoad.value
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Get.to(() => const ProductCardPage())
                           },
                           leading: ImageProductWidget(
                             urlImage: item.image,
