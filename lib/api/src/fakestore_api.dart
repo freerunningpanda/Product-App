@@ -11,17 +11,12 @@ abstract class FakeStoreApiProducts {
   Future<List<Product>> getProducts();
 }
 
-<<<<<<< HEAD
 abstract class FakeStoreApiCategory {
   Future<List<Product>> getCategory(String id);
 }
 
 class FakeStoreProvider
     implements FakeStoreApiProduct, FakeStoreApiProducts, FakeStoreApiCategory {
-=======
-
-class FakeStoreProvider implements FakeStoreApiProduct, FakeStoreApiProducts {
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
   final dio = Dio();
 
   @override
@@ -41,13 +36,8 @@ class FakeStoreProvider implements FakeStoreApiProduct, FakeStoreApiProducts {
 
   @override
   Future<List<Product>> getProducts() async {
-<<<<<<< HEAD
     try {
       Future.delayed(const Duration(seconds: 6));
-=======
-    Future.delayed(const Duration(seconds: 6));
-    try {
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
       var response = await dio.get('https://fakestoreapi.com/products');
       if (response.statusCode == 200) {
         return (response.data as List<dynamic>)
@@ -59,7 +49,6 @@ class FakeStoreProvider implements FakeStoreApiProduct, FakeStoreApiProducts {
       throw FakeStoreException(e.message);
     }
   }
-<<<<<<< HEAD
 
   @override
   Future<List<Product>> getCategory(String category) async {
@@ -77,6 +66,4 @@ class FakeStoreProvider implements FakeStoreApiProduct, FakeStoreApiProducts {
       throw FakeStoreException(e.message);
     }
   }
-=======
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
 }
