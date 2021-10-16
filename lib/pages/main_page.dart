@@ -1,3 +1,4 @@
+import 'package:fakestore_flutter/api/fakestore_api.dart';
 import 'package:fakestore_flutter/controllers/download_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,12 @@ import '../widgets/image_products_widget.dart';
 import 'product_card_page.dart';
 
 class MainPageFakeStoreApp extends StatelessWidget {
-  const MainPageFakeStoreApp({Key? key}) : super(key: key);
+  final FakeStoreProvider fakeStoreProvider, categoryProvider;
+  const MainPageFakeStoreApp(
+      {Key? key,
+      required this.fakeStoreProvider,
+      required this.categoryProvider})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +22,57 @@ class MainPageFakeStoreApp extends StatelessWidget {
             title: const Text('FakeStore App'),
             centerTitle: true,
             backgroundColor: Colors.grey[900],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.grey[900]),
+                  child: const Text('Categories',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500)),
+                ),
+                ListTile(
+                  title: const Text(
+                    'Electronics',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {
+                    !controller.isLoad.value
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Get.to(() => MainPageFakeStoreApp(
+                            categoryProvider: categoryProvider,
+                            fakeStoreProvider: fakeStoreProvider));
+                  },
+                ),
+                ListTile(
+                  title: const Text(
+                    'Jewelery',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text(
+                    'Men\'s clothing',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text(
+                    'Women\'s clothing',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {},
+                )
+              ],
+            ),
           ),
           body: !controller.isLoad.value
               ? const Center(
@@ -53,7 +110,9 @@ class MainPageFakeStoreApp extends StatelessWidget {
                                 ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
-                                : Get.to(() => const ProductCardPage())
+                                : Get.to(() => ProductCardPage(
+                                    id: item.id,
+                                    fakeStoreProvider: fakeStoreProvider))
                           },
                           leading: ImageProductWidget(
                             urlImage: item.image,
