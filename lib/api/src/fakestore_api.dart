@@ -9,21 +9,17 @@ abstract class FakeStoreApiProduct {
 
 abstract class FakeStoreApiProducts {
   Future<List<Product>> getProducts();
+  Future<List<Product>> getCategory(String category);
 }
 
-abstract class FakeStoreApiCategory {
-  Future<List<Product>> getCategory(String id);
-}
 
 class FakeStoreProvider
-    implements FakeStoreApiProduct, FakeStoreApiProducts, FakeStoreApiCategory {
+    implements FakeStoreApiProduct, FakeStoreApiProducts {
   final dio = Dio();
 
   @override
   Future<Product> getProduct(int id) async {
-    Future.delayed(const Duration(seconds: 6));
     try {
-      await Future.delayed(const Duration(seconds: 3));
       var response = await dio.get('https://fakestoreapi.com/products/$id');
       if (response.statusCode == 200) {
         return Product.fromJson(response.data);
@@ -37,7 +33,6 @@ class FakeStoreProvider
   @override
   Future<List<Product>> getProducts() async {
     try {
-      Future.delayed(const Duration(seconds: 6));
       var response = await dio.get('https://fakestoreapi.com/products');
       if (response.statusCode == 200) {
         return (response.data as List<dynamic>)
@@ -53,7 +48,6 @@ class FakeStoreProvider
   @override
   Future<List<Product>> getCategory(String category) async {
     try {
-      Future.delayed(const Duration(seconds: 6));
       var response =
           await dio.get('https://fakestoreapi.com/products/category/$category');
       if (response.statusCode == 200) {

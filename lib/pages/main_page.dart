@@ -5,13 +5,11 @@ import 'package:get/get.dart';
 
 import '../widgets/image_products_widget.dart';
 import 'product_card_page.dart';
+import '../constants.dart';
 
 class MainPageFakeStoreApp extends StatelessWidget {
-  final FakeStoreProvider fakeStoreProvider, categoryProvider;
-  const MainPageFakeStoreApp(
-      {Key? key,
-      required this.fakeStoreProvider,
-      required this.categoryProvider})
+  final FakeStoreProvider fakeStoreProvider;
+  const MainPageFakeStoreApp({Key? key, required this.fakeStoreProvider})
       : super(key: key);
 
   @override
@@ -22,6 +20,16 @@ class MainPageFakeStoreApp extends StatelessWidget {
             title: const Text('FakeStore App'),
             centerTitle: true,
             backgroundColor: Colors.grey[900],
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.add_shopping_cart),
+                tooltip: 'Show Snackbar',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('This is a snackbar')));
+                },
+              )
+            ],
           ),
           drawer: Drawer(
             child: ListView(
@@ -37,39 +45,38 @@ class MainPageFakeStoreApp extends StatelessWidget {
                 ),
                 ListTile(
                   title: const Text(
+                    'All',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () => controller.fetch20Products(),
+                ),
+                ListTile(
+                  title: const Text(
                     'Electronics',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {
-                    !controller.isLoad.value
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : Get.to(() => MainPageFakeStoreApp(
-                            categoryProvider: categoryProvider,
-                            fakeStoreProvider: fakeStoreProvider));
-                  },
+                  onTap: () => controller.setCategory(Categories.electronics),
                 ),
                 ListTile(
                   title: const Text(
                     'Jewelery',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {},
+                  onTap: () => controller.setCategory(Categories.jewelery),
                 ),
                 ListTile(
                   title: const Text(
                     'Men\'s clothing',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {},
+                  onTap: () => controller.setCategory(Categories.menClothing),
                 ),
                 ListTile(
                   title: const Text(
                     'Women\'s clothing',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  onTap: () {},
+                  onTap: () => controller.setCategory(Categories.womenClothing),
                 )
               ],
             ),
@@ -106,13 +113,9 @@ class MainPageFakeStoreApp extends StatelessWidget {
                           ),
                           contentPadding: const EdgeInsets.all(15),
                           onTap: () => {
-                            !controller.isLoad.value
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : Get.to(() => ProductCardPage(
-                                    id: item.id,
-                                    fakeStoreProvider: fakeStoreProvider))
+                            Get.to(() => ProductCardPage(
+                                id: item.id,
+                                fakeStoreProvider: fakeStoreProvider))
                           },
                           leading: ImageProductWidget(
                             urlImage: item.image,

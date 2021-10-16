@@ -9,17 +9,15 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final fakeStoreProvider = FakeStoreProvider();
-  final categoryProvider = FakeStoreProvider();
   MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => DownloadController(fakeStoreProvider, categoryProvider));
+    Get.lazyPut(() => DownloadController(fakeStoreProvider));
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Product page',
         home: MainPageFakeStoreApp(
-            fakeStoreProvider: fakeStoreProvider,
-            categoryProvider: categoryProvider));
+            fakeStoreProvider: fakeStoreProvider));
   }
 }
