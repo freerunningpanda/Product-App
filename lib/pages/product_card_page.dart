@@ -6,7 +6,11 @@ import 'package:get/get.dart';
 
 class ProductCardPage extends StatelessWidget {
   final int id;
+<<<<<<< HEAD
   final FakeStoreApiProduct fakeStoreProvider;
+=======
+  final FakeStoreProvider fakeStoreProvider;
+>>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
   const ProductCardPage(
       {Key? key, required this.id, required this.fakeStoreProvider})
       : super(key: key);

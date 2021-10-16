@@ -7,12 +7,18 @@ import '../widgets/image_products_widget.dart';
 import 'product_card_page.dart';
 
 class MainPageFakeStoreApp extends StatelessWidget {
+<<<<<<< HEAD
   final FakeStoreProvider fakeStoreProvider, categoryProvider;
   const MainPageFakeStoreApp(
       {Key? key,
       required this.fakeStoreProvider,
       required this.categoryProvider})
       : super(key: key);
+=======
+  final FakeStoreProvider _fakeStoreProvider;
+  const MainPageFakeStoreApp({Key? key, required FakeStoreProvider fakeStoreProvider})
+      : _fakeStoreProvider = fakeStoreProvider, super(key: key);
+>>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,7 @@ class MainPageFakeStoreApp extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.grey[900],
           ),
+<<<<<<< HEAD
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -74,6 +81,9 @@ class MainPageFakeStoreApp extends StatelessWidget {
               ],
             ),
           ),
+=======
+          drawer: Drawer(),
+>>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
           body: !controller.isLoad.value
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -111,8 +121,14 @@ class MainPageFakeStoreApp extends StatelessWidget {
                                     child: CircularProgressIndicator(),
                                   )
                                 : Get.to(() => ProductCardPage(
+<<<<<<< HEAD
                                     id: item.id,
                                     fakeStoreProvider: fakeStoreProvider))
+=======
+                                      id: item.id,
+                                      fakeStoreProvider: _fakeStoreProvider,
+                                    ))
+>>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
                           },
                           leading: ImageProductWidget(
                             urlImage: item.image,
