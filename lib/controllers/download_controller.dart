@@ -5,18 +5,10 @@ import '../models/product.dart';
 
 class DownloadController extends GetxController {
   final FakeStoreApiProducts productsProvider;
-<<<<<<< HEAD
-  final FakeStoreApiCategory categoryProvider;
-  var productList = <Product>[].obs;
-  var isLoad = false.obs;
-
-  DownloadController(this.productsProvider, this.categoryProvider);
-=======
   var productList = <Product>[].obs;
   var isLoad = false.obs;
 
   DownloadController(this.productsProvider);
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
   @override
   void onInit() {
     super.onInit();
@@ -27,26 +19,18 @@ class DownloadController extends GetxController {
     try {
       productList.value = await productsProvider.getProducts();
       isLoad.value = true;
-<<<<<<< HEAD
     } on FakeStoreException catch (e) {
       Get.snackbar('Oo', e.toString());
     }
   }
 
-  Future<void> changeCategory(String category) async {
+  Future<void> setCategory(String category) async {
     isLoad.value = false;
     try {
-      productList.value = await categoryProvider.getCategory(category);
+      productList.value = await productsProvider.getCategory(category);
       isLoad.value = true;
     } on FakeStoreException catch (e) {
-=======
-    } on FakeStoreException catch(e) {
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
       Get.snackbar('Oo', e.toString());
     }
   }
-
-  Future<void> chengeCategory(String category) async{
-    
-  } 
 }

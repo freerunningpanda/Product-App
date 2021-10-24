@@ -4,13 +4,11 @@ import 'package:fakestore_flutter/widgets/image_products_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'cart_page.dart';
+
 class ProductCardPage extends StatelessWidget {
   final int id;
-<<<<<<< HEAD
   final FakeStoreApiProduct fakeStoreProvider;
-=======
-  final FakeStoreProvider fakeStoreProvider;
->>>>>>> 6aaf49d50bc13fd275113aa5c012555584c58f6b
   const ProductCardPage(
       {Key? key, required this.id, required this.fakeStoreProvider})
       : super(key: key);
@@ -25,6 +23,15 @@ class ProductCardPage extends StatelessWidget {
           title: const Text('FakeStore App'),
           centerTitle: true,
           backgroundColor: Colors.grey[900],
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                Get.to(() => CartPage());
+              },
+              icon: const Icon(Icons.add_shopping_cart),
+              tooltip: 'Cart',
+            )
+          ],
         ),
         body: !controller.isLoad.value
             ? const Center(
@@ -70,6 +77,20 @@ class ProductCardPage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: const TextStyle(fontSize: 20.0),
                             ))),
+                    ElevatedButton(
+                      child: const Text(
+                        'Add to cart',
+                      ),
+                      onPressed: () {
+                        Get.to(() => CartPage());
+                      },
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 20),
+                          primary: Colors.grey[900],
+                          textStyle: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                    )
                   ],
                 ))));
   }

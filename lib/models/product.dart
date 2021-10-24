@@ -1,7 +1,7 @@
 class Product {
   final int id;
   final String title;
-  final dynamic price;
+  final double price;
   final String category;
   final String description;
   final String image;
@@ -18,7 +18,7 @@ class Product {
     return Product(
         id: json['id'],
         title: json['title'],
-        price: json['price'],
+        price: (json['price'] as num).toDouble(),
         category: json['category'],
         description: json['description'],
         image: json['image']);
