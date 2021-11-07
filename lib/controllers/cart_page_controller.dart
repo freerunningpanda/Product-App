@@ -1,22 +1,24 @@
-import 'package:fakestore_flutter/controllers/product_card_page_controller.dart';
+import 'package:fakestore_flutter/models/product.dart';
 import 'package:get/get.dart';
 
 class CartPageController extends GetxController {
-  final ProductCardPageController cartProvider;
-  // var productList = <Product>[].obs;
-  var productList = [].obs;
+  var productList = <Product>[].obs;
 
-  CartPageController(this.cartProvider);
+  CartPageController();
 
-  void getProduct() {
-    productList.add(cartProvider.product);
+  void addProduct(Product product) {
+    productList.add(product);
   }
 
-  void removeProduct() {
-    productList.remove(cartProvider.product);
+  void removeProduct(Product product) {
+    productList.remove(product);
   }
 
-  void getSum() {
-    for (var i = 0; i < cartProvider.product.price; i++) {}
+  double getSum() {
+    var price = 0.0;
+    for (var item in productList.value) {
+      price += item.price;
+    }
+    return price;
   }
 }

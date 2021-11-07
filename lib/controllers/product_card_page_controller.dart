@@ -5,19 +5,13 @@ import '../models/product.dart';
 
 class ProductCardPageController extends GetxController {
   final FakeStoreApiProduct productProvider;
-  late final Product product;
+  late Product product;
   var isLoad = false.obs;
-  final int id;
 
-  ProductCardPageController({required this.id, required this.productProvider});
+  ProductCardPageController({required this.productProvider});
 
-  @override
-  void onInit() {
-    fetchProduct();
-    super.onInit();
-  }
-
-  Future<void> fetchProduct() async {
+  Future<void> fetchProduct(int id) async {
+    isLoad.value = false;
     try {
       product = await productProvider.getProduct(id);
       isLoad.value = true;

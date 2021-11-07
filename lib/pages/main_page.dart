@@ -24,7 +24,7 @@ class MainPageFakeStoreApp extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                 onPressed: () {
-                  Get.to(() => CartPage());
+                  Get.to(() => const CartPage());
                 },
                 icon: const Icon(Icons.add_shopping_cart),
                 tooltip: 'Cart',
@@ -112,11 +112,8 @@ class MainPageFakeStoreApp extends StatelessWidget {
                             size: 30,
                           ),
                           contentPadding: const EdgeInsets.all(15),
-                          onTap: () => {
-                            Get.to(() => ProductCardPage(
-                                id: item.id,
-                                fakeStoreProvider: fakeStoreProvider))
-                          },
+                          onTap: () =>
+                              {Get.to(() => ProductCardPage(id: item.id))},
                           leading: ImageProductWidget(
                             urlImage: item.image,
                           ),

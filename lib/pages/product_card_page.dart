@@ -1,4 +1,4 @@
-import 'package:fakestore_flutter/api/fakestore_api.dart';
+import 'package:fakestore_flutter/controllers/cart_page_controller.dart';
 import 'package:fakestore_flutter/controllers/product_card_page_controller.dart';
 import 'package:fakestore_flutter/widgets/image_products_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +7,16 @@ import 'package:get/get.dart';
 import 'cart_page.dart';
 
 class ProductCardPage extends StatelessWidget {
+  final controller = Get.find<ProductCardPageController>();
   final int id;
-  final FakeStoreApiProduct fakeStoreProvider;
-  const ProductCardPage(
-      {Key? key, required this.id, required this.fakeStoreProvider})
-      : super(key: key);
+  ProductCardPage({Key? key, required this.id}) : super(key: key) {
+    controller.fetchProduct(id);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() =>
-        ProductCardPageController(id: id, productProvider: fakeStoreProvider));
-    final controller = Get.find<ProductCardPageController>();
+    final cartController = Get.find<CartPageController>();
+
     return Obx(() => Scaffold(
         appBar: AppBar(
           title: const Text('FakeStore App'),
@@ -26,7 +25,7 @@ class ProductCardPage extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                Get.to(() => CartPage());
+                Get.to(() => const CartPage());
               },
               icon: const Icon(Icons.add_shopping_cart),
               tooltip: 'Cart',
@@ -82,13 +81,13 @@ class ProductCardPage extends StatelessWidget {
                         'Add to cart',
                       ),
                       onPressed: () {
-                        Get.to(() => CartPage());
+                        cartController.addProduct(controller.product);
                       },
                       style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 40, vertical: 20),
                           primary: Colors.grey[900],
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                     )
                   ],
