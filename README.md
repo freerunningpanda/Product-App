@@ -1,16 +1,6 @@
-# fakestore_flutter
+# FakeStore
+FakeStore App
 
-A new Flutter project.
+## Описание
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Данное приложение представляет собой фейковый интернет магазин, демонстирующий список товаров на главной странице, по клику на который можно перейти в его карточку, посмотрев детальное описание. Можно добавлять и удалять товары из корзины.
