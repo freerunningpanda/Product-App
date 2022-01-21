@@ -1,6 +1,6 @@
 # FakeStore
 FakeStore App
 
-## Описание
+## Description
 
-Данное приложение представляет собой фейковый интернет магазин, демонстирующий список товаров на главной странице, по клику на который можно перейти в его карточку, посмотрев детальное описание. Можно добавлять и удалять товары из корзины.
+This application represents a fake online store, that shows a list of products on the main page, by clicking on with you can go to its card page, to looking her detailed description. You can add and delete items from the shopping cart.
