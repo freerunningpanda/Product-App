@@ -1,5 +1,5 @@
 # FakeStore
-FakeStore App
+Pet project
 
 ## Description
 
